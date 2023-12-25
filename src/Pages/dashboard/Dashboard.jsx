@@ -2,6 +2,7 @@ import { MdManageHistory } from "react-icons/md";
 import { BiSolidLogOut } from "react-icons/bi";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import useAuth from "../../components/hooks/useAuth";
+import { Toaster } from "react-hot-toast";
 
 const Dashboard = () => {
   const { user, logOut } = useAuth();
@@ -46,7 +47,8 @@ const Dashboard = () => {
       </div>
       {/* main content */}
       <div className="lg:w-3/4 p-4">
-        <Outlet></Outlet>
+        <Toaster />
+        <Outlet />
       </div>
     </div>
   );

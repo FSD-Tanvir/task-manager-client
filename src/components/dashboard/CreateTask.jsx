@@ -1,32 +1,35 @@
+/* eslint-disable react/prop-types */
 import { useForm } from "react-hook-form";
 import useAuth from "../hooks/useAuth";
+import axios from "axios";
+import toast from "react-hot-toast";
 
-const CreateTask = () => {
+const CreateTask = ({ onTaskCreated }) => {
   const { register, handleSubmit, reset } = useForm();
-  const {user} = useAuth()
+  const { user } = useAuth();
 
   const onSubmit = async (data) => {
-
     const addTask = {
       taskTitle: data.taskTitle,
       description: data.description,
       deadlines: data.deadlines,
       taskPriority: data.taskPriority,
       userEmail: user.email,
-      status: "todo"
+      status: "todo",
     };
     console.log(addTask);
-    reset()
-    // const allTask = await axios.post('http://localhost:5000/api/v1/all-task',addTask)
-    // if(allTask.data.insertedId){
-    //     reset()
-    //     Swal.fire({
-    //         title: "Task Added Sucessfully",
-    //         text: "You clicked the button!",
-    //         icon: "success"
-    //       });
-    // }
+
+    const result = await axios.post(
+      "http://localhost:5000/create-task",
+      addTask
+    );
+    if (result.data.insertedId) {
+      toast.success("Created successfully");
+      reset();
+      onTaskCreated();
+    }
   };
+
   return (
     <div>
       <h2 className="text-4xl text-center mb-4 font-bold">Create Your Task</h2>
