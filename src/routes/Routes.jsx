@@ -3,6 +3,9 @@ import Home from "../Pages/Home/Home";
 import Root from "../layouts/Root";
 import Login from "../Pages/login/Login";
 import SignUp from "../Pages/login/SignUp";
+import Dashboard from "../Pages/dashboard/Dashboard";
+import ManageTask from "../Pages/dashboard/manageTask";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -24,8 +27,23 @@ const router = createBrowserRouter([
       },
     ],
   },
-  {path: "/login", element:<Login/>},
-  {path: "/sign-up", element:<SignUp/>}
+  { path: "/login", element: <Login /> },
+  { path: "/sign-up", element: <SignUp /> },
+  {
+    path: "/task-board",
+    element: (
+      <PrivateRoute>
+        <Dashboard />
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        index: true,
+        path: "/task-board",
+        element: <ManageTask />,
+      },
+    ],
+  },
 ]);
 
 export default router;
