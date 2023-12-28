@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { useForm } from "react-hook-form";
@@ -23,7 +24,6 @@ const SignUp = () => {
       const imageData = await imageUpload(data.image[0]);
       //2.user registration
       const result = await createUser(data?.email, data?.password);
-      console.log(result);
       //3.save user name and profile photo
       await updateUserProfile(data?.name, imageData?.data?.display_url);
       navigate("/");
@@ -37,7 +37,6 @@ const SignUp = () => {
     try {
       //handle google sign in
       const result = await signInWithGoogle();
-      console.log(result);
       navigate("/");
       toast.success("Login Successful");
     } catch (err) {

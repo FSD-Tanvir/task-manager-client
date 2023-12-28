@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
@@ -19,12 +20,11 @@ const Login = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data);
+
 
     try {
       //user login
       const result = await signIn(data?.email, data?.password);
-      console.log(result);
       navigate(to, { replace: true });
       toast.success("Sign In Successful");
     } catch (err) {
@@ -36,7 +36,6 @@ const Login = () => {
     try {
       //handle google sign in
       const result = await signInWithGoogle();
-      console.log(result);
       navigate(to, { replace: true });
       toast.success("Login Successful");
     } catch (err) {

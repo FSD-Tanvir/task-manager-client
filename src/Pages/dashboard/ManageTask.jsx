@@ -3,8 +3,10 @@ import { useQuery } from "react-query";
 import CreateTask from "../../components/dashboard/CreateTask";
 import useAuth from "../../components/hooks/useAuth";
 import Loader from "../../components/shared/Loader";
-import TaskLists from "../../components/dashboard/TaskLists";
+import TaskLists from "../../components/dashboard/taskList/TaskLists";
 import { useEffect, useState } from "react";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 const ManageTask = () => {
   const { user } = useAuth();
@@ -45,10 +47,16 @@ const ManageTask = () => {
   if (isLoading) return <Loader />;
 
   return (
-    <div className="flex flex-col items-center gap-16">
-      <CreateTask onTaskCreated={handleRefetch} />
-      <TaskLists onTaskDeleted={handleRefetch} tasks={tasks} />
-    </div>
+    <DndProvider backend={HTML5Backend}>
+      <div className="flex flex-col items-center gap-16">
+        <CreateTask onTaskCreated={handleRefetch} />
+        <TaskLists
+          onTaskDeleted={handleRefetch}
+          onStatusUpdated={handleRefetch}
+          tasks={tasks}
+        />
+      </div>
+    </DndProvider>
   );
 };
 

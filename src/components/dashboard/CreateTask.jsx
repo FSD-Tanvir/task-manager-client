@@ -17,7 +17,7 @@ const CreateTask = ({ onTaskCreated }) => {
       userEmail: user.email,
       status: "todo",
     };
-    console.log(addTask);
+
 
     const result = await axios.post(
       "http://localhost:5000/create-task",
